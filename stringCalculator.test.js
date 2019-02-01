@@ -21,4 +21,8 @@ describe('String calculator', () => {
     expect(stringCalculator.add('1\n2')).toBe(3)
     expect(stringCalculator.add('1\n2,3\n4,5')).toBe(15)
   })
+
+  it('It handles a custom delimiter', () => {
+    expect(stringCalculator.add('//;\n1;2;3')).toBe(6)
+  })
 })
