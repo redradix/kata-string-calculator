@@ -26,4 +26,16 @@ describe('add', () => {
   it('should support different delimiters', () => {
     expect(add('//{\n1\n4{5{3\n1999{88')).toEqual(2100)
   })
+
+  it('should throw an exception for negative numbers', () => {
+    expect(() => add('-1')).toThrowError(/negatives not allowed/)
+    expect(() => add('-1')).toThrowError(/-1/)
+    expect(() => add('-1,3,-4')).toThrowError(/negatives not allowed/)
+    expect(() => add('-1,3,-4')).toThrowError(/-1/)
+    expect(() => add('-1,3,-4')).toThrowError(/-4/)
+  })
+
+  it('numbers bigger than 1000 should be ignored', () => {
+    expect(add('1\n1999,88')).toEqual(89)
+  })
 })
