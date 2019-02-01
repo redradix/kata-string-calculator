@@ -5,6 +5,9 @@
   "repository": "git@github.com:redradix/string-calculator.git",
   "author": "Victor Miguez <victor.miguez.martinez@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "test": "jest"
+  },
   "dependencies": {
     "jest": "^24.0.0"
   }
