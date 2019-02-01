@@ -10,4 +10,15 @@ describe('String calculator', () => {
   it('With 2 numbers they must be added', () => {
     expect(stringCalculator.add('1,2')).toBe(3)
   })
+
+  it('Handle an unknown amount of numbers', () => {
+    expect(stringCalculator.add('1,2,3')).toBe(6)
+    expect(stringCalculator.add('1,2,3,4')).toBe(10)
+    expect(stringCalculator.add('1,2,3,4,5')).toBe(15)
+  })
+
+  it('Handles new lines character as separator', () => {
+    expect(stringCalculator.add('1\n2')).toBe(3)
+    expect(stringCalculator.add('1\n2,3\n4,5')).toBe(15)
+  })
 })
