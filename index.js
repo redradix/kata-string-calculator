@@ -1,3 +1,4 @@
 module.exports = input => {
-  return 0
+  if(input.length === 0) return 0
+  return Number.parseInt(input)
 }
