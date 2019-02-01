@@ -22,7 +22,13 @@ describe('String calculator', () => {
     expect(stringCalculator.add('1\n2,3\n4,5')).toBe(15)
   })
 
-  it('It handles a custom delimiter', () => {
+  it('Handles a custom delimiter', () => {
     expect(stringCalculator.add('//;\n1;2;3')).toBe(6)
+  })
+
+  it('Throws and exception for negative numbers on input', () => {
+    expect(() => stringCalculator.add('-1,-2')).toThrow(
+      new Error('negatives not allowed: -1,-2')
+    )
   })
 })

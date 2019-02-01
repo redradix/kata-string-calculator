@@ -13,7 +13,15 @@ const toNumberList = input =>
     .filter(Boolean)
     .map(number => parseInt(number))
 
-const parseInput = input => toNumberList(homogeneizeInput(input))
+const throwOnNegativeValues = numbers => {
+  const negativeNumbers = numbers.filter(n => n < 0)
+  if (negativeNumbers.length)
+    throw new Error(`negatives not allowed: ${negativeNumbers.join(',')}`)
+  return numbers
+}
+
+const parseInput = input =>
+  throwOnNegativeValues(toNumberList(homogeneizeInput(input)))
 
 const sum = numbers => numbers.reduce((sum, element) => sum + element, 0)
 
