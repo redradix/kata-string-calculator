@@ -1,7 +1,12 @@
+const pipe = (...fns) => arg => fns.reduce((acc, fn) => fn(acc), arg)
+
 const DEFAULT_SEPARATOR = ','
+const CUSTOM_DELIMITER_TOKEN = '//'
+
+const usesCustomDelimiter = input => input.startsWith(CUSTOM_DELIMITER_TOKEN)
 
 const homogeneizeInput = input =>
-  input.startsWith('//')
+  usesCustomDelimiter(input)
     ? input
         .slice(4)
         .replace(new RegExp(`${input.charAt(2)}`, 'g'), DEFAULT_SEPARATOR)
@@ -20,13 +25,19 @@ const throwOnNegativeValues = numbers => {
   return numbers
 }
 
-const parseInput = input =>
-  throwOnNegativeValues(toNumberList(homogeneizeInput(input)))
+const parseInput = pipe(
+  homogeneizeInput,
+  toNumberList,
+  throwOnNegativeValues
+)
 
 const sum = numbers => numbers.reduce((sum, element) => sum + element, 0)
 
 const stringCalculator = {
-  add: input => sum(parseInput(input))
+  add: pipe(
+    parseInput,
+    sum
+  )
 }
 
 module.exports = stringCalculator
