@@ -17,7 +17,7 @@ describe('add function', () => {
     const testCases = [
       { input: '4,2,8', output: 14 },
       { input: '4,2,8,10,1', output: 25 },
-      { input: '4,2,8,10,1,3,3,-4', output: 27 }
+      { input: '4,2,8,10,1,3,3,4', output: 35 }
     ]
 
     testCases.forEach(({ input, output }) => {
@@ -32,5 +32,10 @@ describe('add function', () => {
 
   it('allows to change separator symbol', () => {
     expect(add('//:\n1:2:3')).toBe(6)
+  })
+
+  it('throws when a negative number is introduced', () => {
+    expect(() => add('-1,3')).toThrowError('negatives not allowed -1')
+    expect(() => add('-1,3,-2')).toThrowError('negatives not allowed -1,-2')
   })
 })

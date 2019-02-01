@@ -1,27 +1,31 @@
 module.exports = input => {
   if (input.length === 0) return 0
-  const delimiter = getDelimiter(input)
+  const [delimiter, chain] = splitInput(input) 
   const numbers = parseMultiple(
-    getNumbers(removeDelimiterChanger(input), delimiter)
+    getNumbers(chain, delimiter)
   )
+
+  if(areInvalidNumbers(numbers)) throw new Error('negatives not allowed ' + numbers.filter(isNegative))
+
   return sumMultiple(numbers)
+}
+
+const splitInput = input => {
+  if (!input.startsWith(CHANGE_DELIMITER_MARKER)) return [DEFAULT_DELIMITER, input ]
+
+  const delimiter = getDelimiter(input)
+  const chain = getChain(input)
+  return [ delimiter, chain]
 }
 
 const DEFAULT_DELIMITER = ','
 const CHANGE_DELIMITER_MARKER = '//'
 
-const removeDelimiterChanger = input => {
-  if (input.startsWith(CHANGE_DELIMITER_MARKER)) {
-    const indexOfFirstLineBreak = input.indexOf('\n')
-    return input.slice(indexOfFirstLineBreak + 1)
-  }
-  return input
-}
-const getDelimiter = input => {
-  if (input.startsWith(CHANGE_DELIMITER_MARKER))
-    return input.split('\n')[0].substring(2)
-  return DEFAULT_DELIMITER
-}
+const isNegative = n => n < 0
+const areInvalidNumbers = numbers => numbers.some(isNegative)
+
+const getDelimiter = input => input.split('\n')[0].substring(2)
+const getChain = input => input.slice(input.indexOf('\n') + 1)
 
 const getNumbers = (input, delimiter) =>
   input.split(new RegExp(`[${delimiter}\n]`))
