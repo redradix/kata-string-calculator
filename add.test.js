@@ -38,4 +38,9 @@ describe('add', () => {
   it('numbers bigger than 1000 should be ignored', () => {
     expect(add('1\n1999,88')).toEqual(89)
   })
+
+  it('supports delimiters of any length with the following format: “//[delimiter]\n”', () => {
+    expect(add('//[quack]\n1\n4quack5,3quack88')).toEqual(101)
+    expect(add('//[123]\n1\n41232,312388')).toEqual(98)
+  })
 })

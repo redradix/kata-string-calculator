@@ -1,16 +1,26 @@
-const escapeRegexp = regexp => regexp.replace('{', '\\{')
+const escapeRegexp = regexp => regexp.replace('\n', '\\n').replace('{', '\\{')
 
 const add = string => {
   const delimiters = [',', '\n']
   const delimiterMatch = string.match(/\/\/(.)\n/)
+  const customDelimiterMatch = string.match(/\/\/\[(.+)\]\n/)
 
   if (delimiterMatch !== null) {
-    delimiters.push(delimiterMatch[1])
+    const delimiter = delimiterMatch[1]
+    delimiters.push(delimiter)
     string = string.slice(delimiterMatch.index + delimiterMatch[0].length)
   }
 
+  if (customDelimiterMatch !== null) {
+    const delimiter = customDelimiterMatch[1]
+    delimiters.push(delimiter)
+    string = string.slice(
+      customDelimiterMatch.index + customDelimiterMatch[0].length
+    )
+  }
+
   const numbers = string
-    .split(new RegExp(`[${delimiters.map(escapeRegexp).join('')}]`))
+    .split(new RegExp(`${delimiters.map(escapeRegexp).join('|')}`))
     .map(number => parseInt(number, 10))
     .filter(number => !isNaN(number))
     .filter(number => number < 1000)
