@@ -16,15 +16,15 @@ describe('add', () => {
   })
 
   it('should handle an unknown amount of numbers', () => {
-    expect(add('1,4,5,3,4,1999,88')).toEqual(2104)
+    expect(add('1,4,5,3,4,88')).toEqual(105)
   })
 
   it('should handle numbers separated by newlines', () => {
-    expect(add('1\n4,5,3,4\n1999,88')).toEqual(2104)
+    expect(add('1\n4,5,3,4\n88')).toEqual(105)
   })
 
   it('should support different delimiters', () => {
-    expect(add('//{\n1\n4{5{3\n1999{88')).toEqual(2100)
+    expect(add('//{\n1\n4{5{3{88')).toEqual(101)
   })
 
   it('should throw an exception for negative numbers', () => {

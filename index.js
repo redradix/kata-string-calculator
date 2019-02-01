@@ -13,6 +13,7 @@ const add = string => {
     .split(new RegExp(`[${delimiters.map(escapeRegexp).join('')}]`))
     .map(number => parseInt(number, 10))
     .filter(number => !isNaN(number))
+    .filter(number => number < 1000)
 
   const negativeNumbers = numbers.filter(number => number < 0)
 
