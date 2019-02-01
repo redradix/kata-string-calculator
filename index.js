@@ -1,35 +1,52 @@
-module.exports = input => {
-  if (input.length === 0) return 0
-  const [delimiter, chain] = splitInput(input) 
-  const numbers = parseMultiple(
-    getNumbers(chain, delimiter)
-  )
-
-  if(areInvalidNumbers(numbers)) throw new Error('negatives not allowed ' + numbers.filter(isNegative))
-
-  return sumMultiple(numbers)
+// General purpose
+const pipe = (...fns) => input => fns.reduce((a, fn) => fn(a), input)
+const trace = x => {
+  console.log('x', x)
+  return x
 }
+const sum = numbers => numbers.reduce((a, b) => a + b)
+const isEmpty = input => input.length === 0
+const isNegative = n => n < 0
 
-const splitInput = input => {
-  if (!input.startsWith(CHANGE_DELIMITER_MARKER)) return [DEFAULT_DELIMITER, input ]
-
-  const delimiter = getDelimiter(input)
-  const chain = getChain(input)
-  return [ delimiter, chain]
-}
-
+// Entities
 const DEFAULT_DELIMITER = ','
 const CHANGE_DELIMITER_MARKER = '//'
 
-const isNegative = n => n < 0
-const areInvalidNumbers = numbers => numbers.some(isNegative)
+module.exports = input => {
+  if (isEmpty(input)) {
+    return 0
+  }
+  return pipe(
+    splitInput,
+    trace,
+    getNumberList,
+    parseMultiple,
+    throwIfInvalid,
+    sum
+  )(input)
+}
+
+const throwIfInvalid = numbers => {
+  if (haveNegativeNumbers(numbers)) {
+    throw new Error('negatives not allowed ' + numbers.filter(isNegative))
+  }
+  return numbers
+}
+
+const splitInput = input => {
+  if (!input.startsWith(CHANGE_DELIMITER_MARKER))
+    return [input, DEFAULT_DELIMITER]
+
+  const delimiter = getDelimiter(input)
+  const numbers = getNumbers(input)
+  return [numbers, delimiter]
+}
+
+const haveNegativeNumbers = numbers => numbers.some(isNegative)
 
 const getDelimiter = input => input.split('\n')[0].substring(2)
-const getChain = input => input.slice(input.indexOf('\n') + 1)
+const getNumbers = input => input.slice(input.indexOf('\n') + 1)
 
-const getNumbers = (input, delimiter) =>
+const getNumberList = ([input, delimiter]) =>
   input.split(new RegExp(`[${delimiter}\n]`))
-const parse = n => parseInt(n)
-const parseMultiple = arr => arr.map(parse)
-const sum = (a, b) => a + b
-const sumMultiple = numbers => numbers.reduce(sum)
+const parseMultiple = arr => arr.map(n => parseInt(n))
