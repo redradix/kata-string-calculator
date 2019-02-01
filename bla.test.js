@@ -20,7 +20,7 @@ describe('add function', () => {
       { input: '4,2,8,10,1,3,3,-4', output: 27 }
     ]
 
-    testCases.forEach( ({ input, output}) => {
+    testCases.forEach(({ input, output }) => {
       expect(add(input)).toBe(output)
     })
   })
@@ -28,5 +28,9 @@ describe('add function', () => {
   it('allows to separate number with line breaks', () => {
     expect(add('1\n2')).toBe(3)
     expect(add('1\n2,3')).toBe(6)
+  })
+
+  it('allows to change separator symbol', () => {
+    expect(add('//:\n1:2:3')).toBe(6)
   })
 })
