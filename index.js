@@ -1,5 +1,5 @@
 const add = numbersString => {
-  const numbers = numbersString.split(',')
+  const numbers = numbersString.replace('\n', ',').split(',')
   return numbers.reduce((acc, curr)=> Number(curr)+ acc, 0)
 }
 
