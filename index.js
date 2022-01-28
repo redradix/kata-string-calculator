@@ -2,7 +2,7 @@ const add = stringNumbers => {
   if (stringNumbers.length === 0) {
     return 0
   }
-  const numbers = stringNumbers.split(',')
+  const numbers = stringNumbers.split(/,|\n/)
   return numbers.reduce((acc, num) => acc + parseInt(num), 0)
 }
 

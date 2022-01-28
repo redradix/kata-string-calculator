@@ -25,4 +25,9 @@ describe('add', () => {
     const result = add('1,2,3,4')
     expect(result).toBe(10)
   })
+
+  it("acepts breaklines and commas as delimiters", () => {
+    const result = add('1\n2,3')
+    expect(result).toBe(6)
+  })
 })
