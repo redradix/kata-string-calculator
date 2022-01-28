@@ -18,9 +18,32 @@ describe('string-calculator', () => {
 
     expect(result).toBe(15)
   })
+
   it('Adding "1\n2,3" string the outcome must be 6', () => {
     const result = add("1\n2,3")
 
     expect(result).toBe(6)
+  })
+
+  it('Adding "1,\\n" string the outcome must give Exception', () => {
+    let error
+    try {
+      const result = add("1,\n")
+    } catch(err) {
+      error = err
+    }
+    
+    expect(error).toBeTruthy()
+  })
+
+  it('Adding "2,\\n" string the outcome must give Exception', () => {
+    let error
+    try {
+      const result = add("2,\n")
+    } catch(err) {
+      error = err
+    }
+    
+    expect(error).toBeTruthy()
   })
 })
