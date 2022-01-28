@@ -10,4 +10,8 @@ describe('it returns the arguments summatory', () => {
   it(`returns the summatory if it receives two numbers as arg`, () =>{
     expect(add('1,2')).toBe(3)
   })
+  it(`returns the summatory if it receives multiple numbers as arg`, () =>{
+    expect(add('1,2,3')).toBe(6)
+    expect(add('1,2,3,1')).toBe(7)
+  })
 })
