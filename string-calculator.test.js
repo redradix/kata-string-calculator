@@ -22,24 +22,25 @@ describe('string-calculator', () => {
     })
   })
 
-  it('Adding "1,\\n" string the outcome must give Exception', () => {
-    let error
-    try {
-      const result = add("1,\n")
-    } catch(err) {
-      error = err
-    }
-    
-    expect(error).toBeTruthy()
-  })
-
-  it('Adding "2,\\n" string the outcome must give Exception', () => {
-    let error
-    try {
-      const result = add("2,\n")
-    } catch(err) {
-      error = err
-    }
-    expect(error).toBeTruthy()
+  describe('Exceptions', () => {
+    it('Adding "1,\\n" string the outcome must give Exception', () => {
+      let error
+      try {
+        const result = add("1,\n")
+      } catch(err) {
+        error = err
+      }
+      
+      expect(error).toBeTruthy()
+    })
+    it('Adding "2,\\n" string the outcome must give Exception', () => {
+      let error
+      try {
+        const result = add("2,\n")
+      } catch(err) {
+        error = err
+      }
+      expect(error).toBeTruthy()
+    })
   })
 })
