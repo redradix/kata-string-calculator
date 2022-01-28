@@ -30,4 +30,9 @@ describe('add', () => {
     const result = add('1\n2,3')
     expect(result).toBe(6)
   })
+
+  it("throws error if breakline and comma are together", () => {
+    const result = add('1\n,2,3')
+    expect(result).toThrow()
+  })
 })

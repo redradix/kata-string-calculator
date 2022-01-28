@@ -3,7 +3,11 @@ const add = stringNumbers => {
     return 0
   }
   const numbers = stringNumbers.split(/,|\n/)
-  return numbers.reduce((acc, num) => acc + parseInt(num), 0)
+  return numbers.reduce((acc, num) => {
+    const number = parseInt(num)
+    if (number === NaN) throw new Error()
+    return acc + number
+  }, 0)
 }
 
 module.exports = { add }
