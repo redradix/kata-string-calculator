@@ -12,5 +12,9 @@ describe('string-calculator', () => {
 
     expect(result).toBe(1)
   })
-  
+  it('Adding "1,2" string the outcome must be 3', () => {
+    const result = add("1,2")
+
+    expect(result).toBe(3)
+  })
 })
