@@ -1,5 +1,5 @@
 const add = numbersString => {
-    return 0
+    return Number(numbersString)
 }
 
 
