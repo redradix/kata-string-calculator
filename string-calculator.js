@@ -1,6 +1,7 @@
 const add = (str) => {
     if (str === '') return 0
-    const numbers = str.split(',')
+    const sanitizeString = str.replace('\n', ',')
+    const numbers = sanitizeString.split(',')
     return numbers.reduce((acc, curr) => acc + parseInt(curr), 0)
 }
 
