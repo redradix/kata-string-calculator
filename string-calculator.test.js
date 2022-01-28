@@ -43,7 +43,6 @@ describe('string-calculator', () => {
     } catch(err) {
       error = err
     }
-    
     expect(error).toBeTruthy()
   })
 })

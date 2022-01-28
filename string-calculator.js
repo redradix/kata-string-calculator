@@ -6,7 +6,7 @@ const add = (str) => {
     const sanitizedString = str.replace('\n', ',')
 
     if (sanitizedString.includes(',,')) {
-        throw new Error('foo')
+      throw new Error('argument format invalid')
     }
 
     const numbers = sanitizedString.split(',')
