@@ -1,8 +1,8 @@
-const { Add } = require("./index.js");
+const { add } = require("./index.js");
 
-describe("Add", () => {
+describe("add", () => {
   it("returns 0 when empty argument is passed", () => {
-    const result = Add("");
+    const result = add("");
 
     expect(result).toBe(0);
   });
