@@ -1,12 +1,15 @@
+const sanitizeString = str => str.replace('\n', ',')
+
 const add = (str) => {
     if (str === '') return 0
-    const sanitizeString = str.replace('\n', ',')
 
-    if (sanitizeString.includes(',,')) {
+    const sanitizedString = str.replace('\n', ',')
+
+    if (sanitizedString.includes(',,')) {
         throw new Error('foo')
     }
-        
-    const numbers = sanitizeString.split(',')
+
+    const numbers = sanitizedString.split(',')
     return numbers.reduce((acc, curr) => acc + parseInt(curr), 0)
 }
 
